@@ -36,7 +36,7 @@ class Source(object):
         for root, dirs, files in os.walk(self._root):
             for f in files:
                 if f.endswith('.md'):
-                    path = os.path.join(self._root, f)
+                    path = os.path.join(root, f)
                     modified = time.ctime(os.path.getmtime(path))
                     if path not in self._sources:
                         callback(path)
@@ -67,7 +67,7 @@ class Pages(object):
         return pages_list
 
     def update(self, path):
-        relative_path = (''.join(path.split(self._root)[-1].split('/'))).split('.md')[0]
+        relative_path = ('/'.join([s for s in path.split(self._root)[-1].split('/') if s])).split('.md')[0]
         logger.warning('Update {path}.'.format(path=relative_path))
         with open(path, 'r') as f:
             source_md = f.read()
