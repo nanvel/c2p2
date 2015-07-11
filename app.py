@@ -1,5 +1,3 @@
-""" Site in Markdown in one file. """
-
 # initialize options, keep it in top
 from mdpages import settings
 
@@ -24,5 +22,6 @@ if __name__ == '__main__':
         template_path=rel('templates'),
     )
     application.listen(port=options.options.PORT)
-    Watcher().watch()
+    if options.options.WATCH:
+        Watcher().watch()
     IOLoop.instance().start()

@@ -62,7 +62,7 @@ class Pages(object):
         return self._pages[path]
 
     def list(self):
-        pages_list = [v for p, v in six.iteritems(self._pages)]
+        pages_list = [v for p, v in six.iteritems(self._pages) if not v['hide']]
         pages_list = sorted(pages_list, key=lambda i: i['created'], reverse=True)
         return pages_list
 
@@ -96,6 +96,7 @@ class Pages(object):
             'meta': md.Meta,
             'created': created,
             'modified': arrow.get(mtime).datetime,
+            'hide': (md.Meta['hide'][0]).lower() == 'true' if 'hide' in md.Meta else False
         }
 
 

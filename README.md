@@ -2,13 +2,18 @@ MDPages - Static site in Markdown
 =================================
 
 Template variables:
-    - title
-    - page / pages
+- title
+- page / pages
 
 Page variable is dict:
-    - path (uri)
-    - html
-    - title
-    - toc (table of contents)
-    - created
-    - modified
+- path (uri)
+- html
+- title
+- toc (table of contents)
+- created
+- modified
+
+Meta in Markdown:
+- created
+- title (overrides header)
+- hide
