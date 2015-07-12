@@ -10,5 +10,6 @@ define(name='BASE_URL', default='http://mysite.com', type=str, help="Site base u
 define(
     name='SOURCE_FOLDER', default='source', type=str,
     help="Relative or absolute path to the folder contains pages source.")
+define(name='DEFAULT_LABEL', default='public', type=str, help="Default label (for index page).")
 define(name='THEME', default='default', type=str, help="Theme.")
 define(name='WATCH', default=True, type=bool, help="Watch for changes in the source files.")

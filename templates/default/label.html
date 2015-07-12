@@ -9,7 +9,11 @@
 Labels:
 <ul>
     {% for label in labels %}
-        <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
+        {% if label['slug'] != current %}
+            <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
+        {% else %}
+            <li>{{ label['title'] }}</li>
+        {% end %}
     {% end %}
 </ul>
 {% end %}

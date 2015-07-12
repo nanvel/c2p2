@@ -19,7 +19,6 @@ Meta in Markdown:
 - hide
 
 TODO:
-- label page
 - on delete page
 - icon
 - rss
@@ -27,3 +26,4 @@ TODO:
 - comments integration
 - page description
 - page keywords
+- pagination

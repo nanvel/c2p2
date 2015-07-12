@@ -4,7 +4,7 @@ from tornado.web import RequestHandler
 from .models import pages
 
 
-__all__ = ['PageHandler', 'IndexHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler']
+__all__ = ['PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler']
 
 
 class PageHandler(RequestHandler):
@@ -18,25 +18,17 @@ class PageHandler(RequestHandler):
             title=page['title'], page=page)
 
 
-class IndexHandler(RequestHandler):
-
-    SUPPORTED_METHODS = ('GET',)
-
-    def get(self):
-        self.render(
-            '{theme}/list.html'.format(theme=options.THEME),
-            pages=pages.list(), title='Index', labels=pages.labels())
-
-
 class LabelHandler(RequestHandler):
 
     SUPPORTED_METHODS = ('GET',)
 
-    def get(self, slug):
+    def get(self, slug=options.DEFAULT_LABEL):
         label = pages.label(slug=slug)
         self.render(
-            '{theme}/list.html'.format(theme=options.THEME),
-            pages=label['pages'], title=label['title'], labels=pages.labels())
+            '{theme}/label.html'.format(theme=options.THEME),
+            pages=label['pages'], title=label['title'],
+            labels=pages.labels(),
+            current=slug)
 
 
 class SitemapHandler(RequestHandler):

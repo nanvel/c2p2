@@ -5,7 +5,7 @@ from tornado.ioloop import IOLoop
 from tornado import options
 from tornado import web
 
-from mdpages.handlers import IndexHandler, PageHandler, SitemapHandler, LabelHandler, RobotsHandler
+from mdpages.handlers import PageHandler, SitemapHandler, LabelHandler, RobotsHandler
 from mdpages.models import Watcher, SOURCE_FOLDER
 from mdpages.utils import rel
 
@@ -13,7 +13,7 @@ from mdpages.utils import rel
 if __name__ == '__main__':
     options.parse_command_line()
     application = web.Application(handlers=[
-            web.url(r'/', IndexHandler, name='index'),
+            web.url(r'/', LabelHandler, name='index'),
             web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
             web.url(r'/robots\.txt', RobotsHandler, name='robots'),
             web.url(r'/label/(?P<slug>[\w/-]+)', LabelHandler, name='label'),
