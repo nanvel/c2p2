@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
-{% block body %}
-<ul>
-{% for page in pages %}
-    <li><a href="{{ reverse_url('page', page['path']) }}">{% raw page['title'] %}</a></li>
-{% end %}
-</ul>
-Labels:
+{% block navigation %}
 <ul>
     {% for label in labels %}
         {% if label['slug'] != current %}
             <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
         {% else %}
-            <li>{{ label['title'] }}</li>
+            <li class="selected">{{ label['title'] }}</li>
         {% end %}
     {% end %}
+</ul>
+{% end %}
+{% block content %}
+<ul class="pages">
+{% for page in pages %}
+    <li><a href="{{ reverse_url('page', page['path']) }}">{{ page['title'] }}</a> <span>{{ page['created'].strftime('%Y-%m-%d %H:%M') }}</span></li>
+{% end %}
 </ul>
 {% end %}

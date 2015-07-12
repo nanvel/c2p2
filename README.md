@@ -19,11 +19,15 @@ Meta in Markdown:
 - hide
 
 TODO:
-- on delete page
-- icon
+- styles
 - rss
 - GA integration
 - comments integration
 - page description
 - page keywords
 - pagination
+- load settings from env
+
+Themes used:
+- http://kevinburke.bitbucket.org/markdowncss/
+- https://github.com/richleland/pygments-css

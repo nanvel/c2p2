@@ -15,7 +15,8 @@ class PageHandler(RequestHandler):
         page = pages.get(path=path)
         self.render(
             '{theme}/page.html'.format(theme=options.THEME),
-            title=page['title'], page=page)
+            title=page['title'], page=page,
+            site_name=options.SITE_NAME)
 
 
 class LabelHandler(RequestHandler):
@@ -28,7 +29,8 @@ class LabelHandler(RequestHandler):
             '{theme}/label.html'.format(theme=options.THEME),
             pages=label['pages'], title=label['title'],
             labels=pages.labels(),
-            current=slug)
+            current=slug,
+            site_name=options.SITE_NAME)
 
 
 class SitemapHandler(RequestHandler):

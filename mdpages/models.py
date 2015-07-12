@@ -78,7 +78,7 @@ class Pages(object):
         return sorted(self._labels.values(), key=lambda i: i['title'])
 
     def label(self, slug):
-        label = dict(self._labels.get(slug, {'pages': {}, 'title': 'Not found.', 'slug': slug}))
+        label = dict(self._labels.get(slug, {'pages': {}, 'title': 'Not found', 'slug': slug}))
         label['pages'] = sorted(label['pages'].values(), key=lambda i: i['created'], reverse=True)
         return label
 
@@ -124,16 +124,17 @@ class Pages(object):
                 'path': relative_path,
                 'html': html,
                 'title': md.Meta['title'][0] if md.Meta.get('title') else md.title,
-                'toc': md.toc,
                 'meta': md.Meta,
                 'created': created,
                 'modified': arrow.get(mtime).datetime,
-                'hide': (md.Meta['hide'][0]).lower() == 'true' if 'hide' in md.Meta else False
+                'hide': (md.Meta['hide'][0]).lower() == 'true' if 'hide' in md.Meta else False,
+                'labels': [],
             }
             self._pages[relative_path] = page
-            if not page['hide']:
-                for label in md.Meta.get('labels', []):
-                    label_slug = slugify(label)
+            for label in md.Meta.get('labels', []):
+                label_slug = slugify(label)
+                page['labels'].append({'slug': label_slug, 'title': label})
+                if not page['hide']:
                     if label_slug not in self._labels:
                         self._labels[label_slug] = {
                             'slug': label_slug,

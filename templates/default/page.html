@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
-{% block body %}
-<a href="{{ reverse_url('index') }}">Index</a>
-{% raw page['toc'] %}
+{% block navigation %}
+<ul>
+    <li><a href="{{ reverse_url('index') }}">Index</a></li>
+    {% for label in page['labels'] %}
+        <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
+    {% end %}
+</ul>
+{% end %}
+{% block content %}
 {% raw page['html'] %}
 {% end %}

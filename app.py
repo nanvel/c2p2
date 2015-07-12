@@ -17,7 +17,7 @@ if __name__ == '__main__':
             web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
             web.url(r'/robots\.txt', RobotsHandler, name='robots'),
             web.url(r'/label/(?P<slug>[\w/-]+)', LabelHandler, name='label'),
-            web.url(r'/(.+\.(?:png|jpg|css))', web.StaticFileHandler, {'path': SOURCE_FOLDER}, name='static'),
+            web.url(r'/(.+\.(?:png|jpg|ico|css))', web.StaticFileHandler, {'path': SOURCE_FOLDER}, name='static'),
             web.url(r'/(?P<path>[\w/-]+)', PageHandler, name='page'),
         ],
         debug=options.options.DEBUG,

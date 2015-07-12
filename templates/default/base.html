@@ -2,11 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{ title }}</title>
+        <title>{{ title }} - {{ site_name }}</title>
+        <link rel="icon" type="image/png" href="/favicon.ico"/>
         <link type="text/css" href="/default.css" rel="stylesheet"/>
     </head>
     <body>
-        {% block body %}
+        <nav>
+        {% block navigation %}
+        {% end %}
+        </nav>
+        {% block content %}
         {% end %}
     </body>
 </html>
