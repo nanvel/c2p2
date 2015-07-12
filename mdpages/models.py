@@ -2,10 +2,10 @@ import arrow
 import datetime
 import logging
 import os
-import six
 import time
 
 from markdown import Markdown
+from slugify import slugify
 from tornado.ioloop import IOLoop
 from tornado.options import options
 
@@ -53,7 +53,8 @@ class Pages(object):
     """ Pages content storage.
     """
 
-    _pages = {}  # path: {html, meta}
+    _pages = {}
+    _labels = {}
 
     def __init__(self, root):
         self._root = root
@@ -62,9 +63,15 @@ class Pages(object):
         return self._pages[path]
 
     def list(self):
-        pages_list = [v for p, v in six.iteritems(self._pages) if not v['hide']]
+        pages_list = [v for v in self._pages.values() if not v['hide']]
         pages_list = sorted(pages_list, key=lambda i: i['created'], reverse=True)
         return pages_list
+
+    def labels(self):
+        return sorted(self._labels.values(), key=lambda i: len(i['pages']), reverse=True)
+
+    def label(self, slug):
+        return self._labels.get(slug, {'pages': [], 'title': 'Not found.', 'slug': slug})
 
     def update(self, path):
         relative_path = ('/'.join([s for s in path.split(self._root)[-1].split('/') if s])).split('.md')[0]
@@ -88,7 +95,7 @@ class Pages(object):
             created = arrow.get(created[0]).datetime
         else:
             created = arrow.get(ctime).datetime
-        self._pages[relative_path] = {
+        page = {
             'path': relative_path,
             'html': html,
             'title': md.Meta['title'][0] if md.Meta.get('title') else md.title,
@@ -98,6 +105,17 @@ class Pages(object):
             'modified': arrow.get(mtime).datetime,
             'hide': (md.Meta['hide'][0]).lower() == 'true' if 'hide' in md.Meta else False
         }
+        self._pages[relative_path] = page
+        if not page['hide']:
+            for label in md.Meta.get('labels', []):
+                label_slug = slugify(label)
+                if label_slug not in self._labels or self._labels[label_slug]['title'] != label:
+                    self._labels[label_slug] = {
+                        'slug': label_slug,
+                        'title': label,
+                        'pages': [],
+                    }
+                self._labels[label_slug]['pages'].append(page)
 
 
 pages = Pages(root=SOURCE_FOLDER)

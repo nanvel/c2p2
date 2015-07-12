@@ -17,3 +17,13 @@ Meta in Markdown:
 - created
 - title (overrides header)
 - hide
+
+TODO:
+- label page
+- on delete page
+- icon
+- rss
+- GA integration
+- comments integration
+- page description
+- page keywords

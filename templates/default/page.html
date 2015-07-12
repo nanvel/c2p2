@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<a href="{{ reverse_url('index') }}">Index</a>
 {% raw page['toc'] %}
 {% raw page['html'] %}
 {% end %}

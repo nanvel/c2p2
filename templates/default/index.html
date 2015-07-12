@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-
-{% block body %}
-<ul>
-{% for page in pages %}
-    <li><a href="{{ page['path'] }}">{% raw page['title'] %}</a></li>
-{% end %}
-</ul>
-{% end %}

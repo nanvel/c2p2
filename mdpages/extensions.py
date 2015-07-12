@@ -9,6 +9,9 @@ from markdown.treeprocessors import Treeprocessor
 from markdown.util import string_type
 
 
+__all__ = ['TitleExtension']
+
+
 class TitleTreeprocessor(Treeprocessor):
 
     def __init__(self, md):
