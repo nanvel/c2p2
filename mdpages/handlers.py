@@ -2,9 +2,12 @@ from tornado.options import options
 from tornado.web import RequestHandler
 
 from .models import pages
+from .utils import absolute_path
 
 
 __all__ = ['PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler']
+
+TEMPLATES_FOLDER = absolute_path('templates/{theme}'.format(theme=options.THEME))
 
 
 class PageHandler(RequestHandler):

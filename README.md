@@ -31,3 +31,10 @@ TODO:
 Themes used:
 - http://kevinburke.bitbucket.org/markdowncss/
 - https://github.com/richleland/pygments-css
+
+Tests
+-----
+
+```python
+python -m unittest mdpages.tests
+```

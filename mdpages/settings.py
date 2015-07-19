@@ -1,16 +1,31 @@
-from tornado.options import define
+import os
+
+from six import iteritems
+
+from tornado import options
 
 
 __all__ = []
 
 
-define(name='DEBUG', default=True, type=bool, help="Enable debug mode.")
-define(name='PORT', default='5000', type=int, help="Port app listening to.")
-define(name='SITE_NAME', default='Site name', type=str, help="Site name, show in title.")
-define(name='BASE_URL', default='http://mysite.com', type=str, help="Site base url, uses in sitemap.xml.")
-define(
-    name='SOURCE_FOLDER', default='source', type=str,
-    help="Relative or absolute path to the folder contains pages source.")
-define(name='DEFAULT_LABEL', default='public', type=str, help="Default label (for index page).")
-define(name='THEME', default='default', type=str, help="Theme.")
-define(name='WATCH', default=True, type=bool, help="Watch for changes in the source files.")
+DEFAULT = {
+    'DEBUG': (bool, True, "Enable debug mode."),
+    'PORT': (int, 5000, "Port app listening to."),
+    'SITE_NAME': (str, 'Site name', "Site name, show in title."),
+    'BASE_URL': (str, 'http://mysite.com', "Site base url, uses in sitemap.xml."),
+    'SOURCE_FOLDER': (str, 'source', "Relative or absolute path to the folder contains pages source."),
+    'DEFAULT_LABEL': (str, 'public', "Default label (for index page)."),
+    'THEME': (str, 'default', "Theme."),
+    'WATCH': (bool, True, "Watch for changes in the source files."),
+}
+
+ENV_PREFIX = 'MDPAGES_'
+
+
+for name, v in iteritems(DEFAULT):
+    v_type, v_default, v_help = v
+    v_value = os.getenv(ENV_PREFIX + name, v_default)
+    options.define(name=name, default=v_default, type=v_type, help=v_help)
+
+
+options.parse_command_line()

@@ -155,10 +155,8 @@ class Watcher(object):
 
     def __init__(self):
         self.ioloop = IOLoop.instance()
-        self.watch()
 
-    def watch(self):
+    def watch(self, repeat=True):
         source.scan(callback=pages.update)
-        self.ioloop.add_timeout(
-            deadline=datetime.timedelta(seconds=2),
-            callback=self.watch)
+        if repeat:
+            self.ioloop.add_timeout(deadline=datetime.timedelta(seconds=2), callback=self.watch)
