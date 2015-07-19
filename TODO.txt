@@ -1,0 +1,5 @@
+TODO:
+- styles for custom elements
+- extend example page
+- usage examples
+- replace `Index` link with `back` button
