@@ -11,7 +11,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run:
+Example page, just run:
+```bash
+python app.py
+```
+and open ```localhost:5000```.
+
+Custom settings:
 ```bash
 EXPORT MDPAGES_SOURCE_FOLDER=/path/to/source/folder
 EXPORT MDPAGES_PORT=5000
@@ -62,7 +68,7 @@ Settings
 --------
 
 It looks for settings in next sequence:
-- default settings (see mdpages/settings.py)
+- default settings (see ```mdpages/settings.py```)
 - environment variables with ```MDPAGES_``` prefix
 - command line arguments (```app.py --PORT=5000```)
 
@@ -81,6 +87,24 @@ Tests
 
 ```python
 python -m unittest mdpages.tests
+```
+
+Contribute
+----------
+
+If you want to contribute to this project, please perform the following steps:
+```bash
+# Fork this repository
+$ virtualenv .env --no-site-packages -p /usr/local/bin/python3.3
+$ source .env/bin/activate
+$ python setup.py install
+$ pip install -r requirements.txt
+
+$ git branch feature_branch master
+# Implement your feature and tests
+$ git add . && git commit
+$ git push -u origin feature_branch
+# Send me a pull request for your feature branch
 ```
 
 Resources
