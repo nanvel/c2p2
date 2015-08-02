@@ -2,7 +2,7 @@
 
 {% block navigation %}
 <ul>
-    <li><a href="{{ reverse_url('index') }}">Index</a></li>
+    <li><a href="{{ reverse_url('index') }}">&#x1f3e1;</a></li>
     {% for label in page['labels'] %}
         <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
     {% end %}

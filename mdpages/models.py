@@ -9,7 +9,7 @@ from slugify import slugify
 from tornado.ioloop import IOLoop
 from tornado.options import options
 
-from .extensions import TitleExtension
+from .extensions import TitleExtension, APIExtension
 from .utils import absolute_path
 
 
@@ -112,6 +112,7 @@ class Pages(object):
                 'markdown.extensions.codehilite',
                 'markdown.extensions.nl2br',
                 TitleExtension(),
+                APIExtension(),
             ])
             html = md.convert(source_md)
             created = md.Meta.get('created')
