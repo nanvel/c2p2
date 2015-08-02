@@ -27,8 +27,8 @@ __all__ = ['APIExtension']
 class APIProcessor(BlockProcessor):
 
     CLASSNAME = 'api'
-    RE_ENDPOINT = re.compile(r'^!API!\ (GET|POST|PUT|DELETE):([\w/]+)(?:\ "(.*?)")?')
-    RE_ATTRIBUTES = re.compile(r'"([\w_-]+)", ?"([\w_-]+)", ?"([?:\ \w_-]+)", ?"(|[?:\ \w_-]+)"')
+    RE_ENDPOINT = re.compile(r'^!API!\ (GET|POST|PUT|DELETE):([\w/{}-]+)(?:\ "(.*?)")?')
+    RE_ATTRIBUTES = re.compile(r'"([\w_-]+)", ?"([\w_-]+)", ?"([?:\ \w_\'-]+)", ?"(|.+)"')
 
     def test(self, parent, block):
         sibling = self.lastChild(parent)
