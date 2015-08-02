@@ -46,12 +46,16 @@ class APIProcessor(BlockProcessor):
         block, rest = self.detab(block)
 
         if m:
-            method = m.group(1)
-            endpoint = m.group(2)
             table = etree.SubElement(parent, 'table')
             tr = etree.SubElement(table, 'tr')
             td = etree.SubElement(tr, 'td', attrib={'colspan': '4'})
-            td.text = u'{method}: {endpoint}'.format(method=method, endpoint=endpoint)
+            method_span = etree.SubElement(td, 'span')
+            method = m.group(1)
+            method_span.text = method
+            method_span.set('class', 'method')
+            endpoint_span = etree.SubElement(td, 'span')
+            endpoint_span.text = m.group(2)
+            tr.set('class', 'method-{method}'.format(method=method.lower()))
             table.set('class', self.CLASSNAME)
             if block:
                 tr = etree.SubElement(table, 'tr')

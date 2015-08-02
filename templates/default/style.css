@@ -352,17 +352,57 @@ div.body p.centered {
 /* api */
 table.api {
     margin-top: 20px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Bitstream Vera Mono', monospace;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 table.api tr:nth-child(1) {
-    font-weight: bold;
+    padding: 15px 5px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 120%;
+}
+table.api tr span.method {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 10px;
+    color: white;
+    font-size: 80%;
+}
+/* get */
+table.api tr.method-get {
+    background: #e7f0f7;
+}
+table.api tr.method-get span.method {
+    background: #0061ac;
+}
+/* post */
+table.api tr.method-post {
+    background: #e7f6ec;
+}
+table.api tr.method-post span.method {
+    background: #04a73a;
+}
+/* put */
+table.api tr.method-put {
+    background: #f9f2e9;
+}
+table.api tr.method-put span.method {
+    background: #b06300;
+}
+/* delete */
+table.api tr.method-delete {
+    background: #f5e8e8;
+}
+table.api tr.method-delete span.method {
+    background: #a20909;
 }
 table.api tr:nth-child(2) {
-    background-color: #bbbbbb;
-    text-align: center;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 table.api tr td {
-    padding: 5px;
+    padding: 5px 15px;
 }
 /* custom */
 nav {
