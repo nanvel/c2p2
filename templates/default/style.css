@@ -369,6 +369,18 @@ table.api tr span.method {
     color: white;
     font-size: 80%;
 }
+table.api tr td.permissions {
+    font-size: 70%;
+    padding-top: 15px;
+}
+table.api tr td.permissions span {
+    color: white;
+    font-size: 70%;
+    border-radius: 2px;
+    background-color: red;
+    padding: 2px 4px;
+    margin-left: 5px;
+}
 /* get */
 table.api tr.method-get {
     background: #e7f0f7;

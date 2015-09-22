@@ -29,7 +29,7 @@ labels: Public
 ![Image title](image.png)
 ```
 
-![Image example](image.png)
+![Image example](https://s3-us-west-2.amazonaws.com/fahlo-p0/0cd82267-3158-423f-b5df-c3e72545bb12/0b25030f/6aed/4a78/8896/decbdc2d1c98/50.100.jpg)
 
 ## Code
 
@@ -146,11 +146,11 @@ inline [text](http://google.com "Link description")
 ## API
 
 ```markdown
-!API! POST:/auth/login
+!API! POST:/accounts/{n} [accounts:edit, accounts:block]
     "username", "str", "required", "4 chars minimal length"
     "password", "str", "required", ""
 ```
 
-!API! POST:/auth/login
+!API! POST:/accounts/{n} [accounts:edit, accounts:block]
     "username", "str", "required", "4 chars minimal length"
     "password", "str", "required", ""

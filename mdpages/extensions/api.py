@@ -27,7 +27,7 @@ __all__ = ['APIExtension']
 class APIProcessor(BlockProcessor):
 
     CLASSNAME = 'api'
-    RE_ENDPOINT = re.compile(r'^!API!\ (GET|POST|PUT|DELETE):([\w/{}-]+)(?:\ "(.*?)")?')
+    RE_ENDPOINT = re.compile(r'^!API!\ (GET|POST|PUT|DELETE):([\w/{}-]+)(?:\ \[(.*?)\])(?:\ "(.*?)")?')
     RE_ATTRIBUTES = re.compile(r'"([\w_-]+)", ?"([\w_-]+)", ?"([?:\ \w_\'-]+)", ?"(|.+)"')
 
     def test(self, parent, block):
@@ -69,6 +69,15 @@ class APIProcessor(BlockProcessor):
                     for i in range(1, 5):
                         td = etree.SubElement(tr, 'td')
                         td.text = found.group(i)
+            permissions = m.group(3).split(',')
+            if permissions:
+                tr = etree.SubElement(table, 'tr')
+                td = etree.SubElement(tr, 'td', attrib={'colspan': '4'})
+                td.set('class', 'permissions')
+                td.text = "Permissions required:"
+                for permission in permissions:
+                    endpoint_span = etree.SubElement(td, 'span')
+                    endpoint_span.text = permission.strip()
         if rest:
             # This block contained unindented line(s) after the first indented
             # line. Insert these lines as the first block of the master blocks
