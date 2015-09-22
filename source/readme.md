@@ -151,6 +151,6 @@ inline [text](http://google.com "Link description")
     "password", "str", "required", ""
 ```
 
-!API! POST:/accounts/{n} [accounts:edit, accounts:block]
+!API! POST:/accounts/{n}
     "username", "str", "required", "4 chars minimal length"
     "password", "str", "required", ""
