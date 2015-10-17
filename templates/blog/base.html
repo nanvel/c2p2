@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }} - {{ site_name }}</title>
+        <link type="text/css" href="/static/style.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <header><a href="{{ reverse_url('index') }}">&#x1f3e1;</a> > {% block header %}{% end %}</header>
+        <aside>
+            <div class="author">
+                <div class="photo">
+                </div>
+                <div class="name">
+                    <a href="/pages/oleksandr-polieno">Oleksandr Polieno</a>
+                </div>
+            </div>
+            {% block navigation %}{% end %}
+        </aside>
+        <section>{% block content %}{% end %}</section>
+        <div style="clear: both"></div>
+        <footer>
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank" class="creative-commons">
+                <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+            </a>
+            &copy; 2011-{{ datetime.date.today().year }}, <a href="/pages/oleksandr-polieno">Oleksandr Polieno</a></footer>
+    </body>
+</html>

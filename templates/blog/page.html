@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}{{ page['title'] }} (
+    {% for label in page['labels'] %}
+        <a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a>
+    {% end %})
+{% end %}
+{% block navigation %}{% end %}
+{% block content %}
+<article>
+    <div class="meta">
+        <time datetime="{{ page['created'].strftime('%Y-%M-%d') }}" pubdate>{{ page['created'].strftime('%B %d, %Y') }}</time>{% if 'place' in page['meta'] %}; {{ page['meta']['place'][0] }}{% end %}
+    </div>
+    <div class="gh_edit">
+        <a href="https://github.com/nanvel/blog/blob/master/{{ page['path'] }}.md">&#x270D; edit</a>
+    </div>
+    {% raw page['html'] %}
+</article>
+{% end %}
+

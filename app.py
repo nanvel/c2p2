@@ -14,7 +14,7 @@ application = web.Application(handlers=[
         web.url(r'/', LabelHandler, name='index'),
         web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
         web.url(r'/robots\.txt', RobotsHandler, name='robots'),
-        web.url(r'/(style\.css)', web.StaticFileHandler, {'path': TEMPLATES_FOLDER}, name='style'),
+        web.url(r'/static/(.+\.(?:png|jpg|css))', web.StaticFileHandler, {'path': TEMPLATES_FOLDER}, name='template'),
         web.url(r'/label/(?P<slug>[\w/-]+)', LabelHandler, name='label'),
         web.url(r'/(.+\.(?:png|jpg))', web.StaticFileHandler, {'path': SOURCE_FOLDER}, name='static'),
         web.url(r'/(?P<path>[\w/-]+)', PageHandler, name='page'),
