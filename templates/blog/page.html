@@ -12,9 +12,8 @@
         <time datetime="{{ page['created'].strftime('%Y-%M-%d') }}" pubdate>{{ page['created'].strftime('%B %d, %Y') }}</time>{% if 'place' in page['meta'] %}; {{ page['meta']['place'][0] }}{% end %}
     </div>
     <div class="gh_edit">
-        <a href="https://github.com/nanvel/blog/blob/master/{{ page['path'] }}.md">&#x270D; edit</a>
+        <a href="https://github.com/nanvel/blog/blob/master/{{ page['path'] }}.md" target="_blank">&#x270D; edit</a>
     </div>
     {% raw page['html'] %}
 </article>
 {% end %}
-
