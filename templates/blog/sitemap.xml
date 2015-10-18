@@ -5,7 +5,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.sitema
     {% for page in pages %}
     <url>
         <loc>{{ base_url }}/{{ page['path'] }}</loc>
-        <lastmod>{{ page['modified'] }}</lastmod>
+        <lastmod>{{ page['modified'].strftime('%Y-%m-%d') }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.00</priority>
     </url>
