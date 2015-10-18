@@ -121,13 +121,19 @@ class Pages(object):
                 created = arrow.get(created[0]).datetime
             else:
                 created = arrow.get(ctime).datetime
+            modified = md.Meta.get('modified')
+            if modified:
+                modified = arrow.get(modified[0]).datetime
+            else:
+                modified = created
+
             page = {
                 'path': relative_path,
                 'html': html,
                 'title': md.Meta['title'][0] if md.Meta.get('title') else md.title,
                 'meta': md.Meta,
                 'created': created,
-                'modified': arrow.get(mtime).datetime,
+                'modified': modified,
                 'hide': (md.Meta['hide'][0]).lower() == 'true' if 'hide' in md.Meta else False,
                 'labels': [],
             }
