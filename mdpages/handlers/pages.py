@@ -1,3 +1,4 @@
+from tornado.httpclient import HTTPError
 from tornado.options import options
 from tornado.web import RequestHandler
 
@@ -17,6 +18,8 @@ class PageHandler(RequestHandler):
 
     def get(self, path):
         page = pages.get(path=path)
+        if not page:
+            raise HTTPError(code=404)
         self.render(
             '{theme}/page.html'.format(theme=options.THEME),
             title=page['title'], page=page,

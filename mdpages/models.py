@@ -65,7 +65,7 @@ class Pages(object):
         self._root = root
 
     def get(self, path):
-        return self._pages[path]
+        return self._pages.get(path)
 
     def list(self):
         pages_list = [v for v in self._pages.values() if not v['hide']]
