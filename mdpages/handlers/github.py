@@ -64,6 +64,6 @@ class GitHubPullHandler(RequestHandler):
 
         if event == 'push':
             ref = json.loads(self.request.body.decode('utf8'))['ref']
-            if ref != 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
+            if ref == 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
                 result = yield github_pull()
                 logger.warning(result)
