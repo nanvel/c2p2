@@ -17,6 +17,9 @@ DEFAULT = {
     'DEFAULT_LABEL': (str, 'public', "Default label (for index page)."),
     'THEME': (str, 'default', "Theme."),
     'WATCH': (bool, True, "Watch for changes in the source files."),
+    'GITHUB_VALIDATE_IP': (bool, True, "Enable github ip validation."),
+    'GITHUB_SECRET': (str, '', "GitHub hooks secret, not required."),
+    'GITHUB_BRANCH': (str, 'master', "GitHub branch to watch."),
 }
 
 ENV_PREFIX = 'MDPAGES_'

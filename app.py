@@ -5,12 +5,14 @@ from tornado.ioloop import IOLoop
 from tornado import options
 from tornado import web
 
-from mdpages.handlers import PageHandler, SitemapHandler, LabelHandler, RobotsHandler, TEMPLATES_FOLDER
+from mdpages.handlers import (
+    GitHubPullHandler, PageHandler, SitemapHandler, LabelHandler, RobotsHandler, TEMPLATES_FOLDER)
 from mdpages.models import Watcher, SOURCE_FOLDER
 from mdpages.utils import rel
 
 
 application = web.Application(handlers=[
+        web.url(r'/pull', GitHubPullHandler, name='git-pull'),
         web.url(r'/', LabelHandler, name='index'),
         web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
         web.url(r'/robots\.txt', RobotsHandler, name='robots'),

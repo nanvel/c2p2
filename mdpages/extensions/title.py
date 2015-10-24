@@ -9,7 +9,7 @@ from markdown.treeprocessors import Treeprocessor
 from markdown.util import string_type
 
 
-__all__ = ['TitleExtension']
+__all__ = ('TitleExtension',)
 
 
 class TitleTreeprocessor(Treeprocessor):

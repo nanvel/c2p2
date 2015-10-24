@@ -13,7 +13,7 @@ from .extensions import TitleExtension, APIExtension
 from .utils import absolute_path
 
 
-__all__ = ['SOURCE_FOLDER', 'Watcher', 'pages']
+__all__ = ('SOURCE_FOLDER', 'Watcher', 'pages')
 
 
 logger = logging.getLogger(__name__)
@@ -22,8 +22,7 @@ SOURCE_FOLDER = absolute_path(options.SOURCE_FOLDER)
 
 
 class Source(object):
-    """ Looks for updates in source files (.md).
-    """
+    """Looks for updates in source files (.md)."""
 
     _sources = {}  # path: mtime
 
@@ -31,8 +30,8 @@ class Source(object):
         self._root = root
 
     def scan(self, callback):
-        """ :param callback: calls when source file was updated.
-        """
+        """:param callback: calls when source file was updated."""
+
         found = []
         for root, dirs, files in os.walk(self._root):
             for f in files:
@@ -57,8 +56,7 @@ source = Source(root=SOURCE_FOLDER)
 
 
 class Pages(object):
-    """ Pages content storage.
-    """
+    """Pages content storage."""
 
     _pages = {}
     _labels = {}
@@ -83,7 +81,7 @@ class Pages(object):
         return label
 
     def update(self, path, delete=False):
-        """
+        """Update inmemory cache.
         :param path: absolute path to source file.
         :param delete: delete page is == True else - update.
         :return: None

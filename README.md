@@ -82,6 +82,13 @@ Available settings:
 - ```THEME```: Theme name
 - ```WATCH```: Watch for changes in the source files
 
+GitHub web hook
+---------------
+
+```bash
+chmod +x pull.sh
+```
+
 Tests
 -----
 

@@ -21,7 +21,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.util import etree
 
 
-__all__ = ['APIExtension']
+__all__ = ('APIExtension',)
 
 
 class APIProcessor(BlockProcessor):

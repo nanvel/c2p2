@@ -1,10 +1,10 @@
 import os.path
 
 
-__all__ = ['rel', 'absolute_path']
+__all__ = ('rel', 'absolute_path')
 
 
-rel = lambda p: os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', p)
+rel = lambda p: os.path.join(os.path.dirname(os.path.realpath(__file__)), '../..', p)
 
 
 def absolute_path(path):
