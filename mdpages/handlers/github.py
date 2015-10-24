@@ -1,5 +1,6 @@
 import json
 import hmac
+import logging
 
 from ipaddress import ip_address, ip_network
 from hashlib import sha1
@@ -13,6 +14,9 @@ from ..utils import github_pull
 
 
 __all__ = ('GitHubPullHandler',)
+
+
+logger = logging.getLogger(__name__)
 
 
 class GitHubPullHandler(RequestHandler):
@@ -49,6 +53,8 @@ class GitHubPullHandler(RequestHandler):
             if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
                 raise HTTPError(code=403)
 
+        logging.warning('GutHub pull ...')
+
         event = self.request.headers.get('X-GitHub-Event', 'ping')
         self.set_header('Content-Type', 'application/json')
 
@@ -59,4 +65,5 @@ class GitHubPullHandler(RequestHandler):
         if event == 'push':
             ref = json.loads(self.request.body.decode('utf8'))['ref']
             if ref != 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
-                yield github_pull()
+                result = yield github_pull()
+                logger.warning(result)
