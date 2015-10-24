@@ -60,7 +60,8 @@ class GitHubPullHandler(RequestHandler):
 
         # ping
         if event == 'ping':
-            return json.dumps({'msg': 'pong'})
+            self.write(json.dumps({'msg': 'pong'}))
+            return
 
         if event == 'push':
             ref = json.loads(self.request.body.decode('utf8'))['ref']
