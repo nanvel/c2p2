@@ -33,7 +33,4 @@ def github_pull():
         gen.Task(sub_process.stderr.read_until_close)
     ]
 
-    if error:
-        raise HTTPError(code=400, message=error)
-
-    raise gen.Return(result)
+    raise gen.Return((result, error))
