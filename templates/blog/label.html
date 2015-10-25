@@ -2,6 +2,7 @@
 
 {% block header %}labels > {{ title }}{% end %}
 {% block navigation %}
+<aside>
 <ul>
     {% for label in labels %}
         {% if label['slug'] != current %}
@@ -11,11 +12,14 @@
         {% end %}
     {% end %}
 </ul>
+</aside>
 {% end %}
 {% block content %}
-<ul class="pages">
-{% for page in pages %}
-    <li><a href="{{ reverse_url('page', page['path']) }}">{{ page['title'] }}</a> <span>{{ page['created'].strftime('%B %d, %Y') }}</span></li>
-{% end %}
+<section>
+    <ul class="pages">
+    {% for page in pages %}
+        <li><a href="{{ reverse_url('page', page['path']) }}">{{ page['title'] }}</a> <span>{{ page['created'].strftime('%B %d, %Y') }}</span></li>
+    {% end %}
 </ul>
+</section>
 {% end %}
