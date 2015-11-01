@@ -1,9 +1,9 @@
 created: 2015-01-01
 labels: Public
 
-[TOC]
-
 # MarkdownPages features
+
+[TOC]
 
 ## Headers
 

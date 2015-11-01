@@ -1,6 +1,6 @@
 User-agent: Yandex
 Disallow: /label
-Host: {{ domain }}
+Host: mysite.com
 
 User-agent: Goolebot
 Disallow: /label

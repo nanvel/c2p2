@@ -1,12 +1,16 @@
-MDPages - Static site in Markdown
-=================================
+# C2P2 - Simple markdown pages publisher
+
+**C**ode
+**C**ommit
+**P**ush
+**P**ublish
 
 Usage
 -----
 
 Environment:
 ```bash
-virtualenv venv --no-site-packages -p /usr/local/bin/python3.3
+virtualenv venv --no-site-packages -p /usr/local/bin/python3.5
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -19,8 +23,8 @@ and open ```localhost:5000```.
 
 Custom settings:
 ```bash
-EXPORT MDPAGES_SOURCE_FOLDER=/path/to/source/folder
-EXPORT MDPAGES_PORT=5000
+EXPORT C2P2_SOURCE_FOLDER=/path/to/source/folder
+EXPORT C2P2_PORT=5000
 python venv/bin/python app.py
 ```
 
@@ -28,19 +32,19 @@ Supervisor configuration:
 ```conf
 [program:app-docs]
 process_name=app-docs
-directory=/home/user/mdpages
-environment=MDPAGES_PORT=5000,MDPAGES_SOURCE_FOLDER=/home/user/myproject/docs
-command=/home/user/mdpages/venv/bin/python app.py
+directory=/home/user/c2p2
+environment=C2P2_PORT=5000,C2P2_SOURCE_FOLDER=/home/user/c2p2/docs
+command=/home/user/c2p2/venv/bin/python app.py
 user=user
-stdout_logfile=/var/log/mdpages/out.log
-stderr_logfile=/var/log/mdpages/err.log
+stdout_logfile=/var/log/c2p2/out.log
+stderr_logfile=/var/log/c2p2/err.log
 autostart=true
 autorestart=true
 ```
 
 Nginx configuration:
 ```nginx
-upstream mdpages-app {
+upstream c2p2-app {
     server 127.0.0.1:5000;
 }
 
@@ -54,7 +58,7 @@ server {
 
     location / {
         proxy_cache off;
-        proxy_pass http://mdpages-app;
+        proxy_pass http://c2p2-app;
     }
 
     location ~* \.(?:css|png|jpe?g|gif|ico)$ {
@@ -68,8 +72,8 @@ Settings
 --------
 
 It looks for settings in next sequence:
-- default settings (see ```mdpages/settings.py```)
-- environment variables with ```MDPAGES_``` prefix
+- default settings (see ```c2p2/settings.py```)
+- environment variables with ```C2P2_``` prefix
 - command line arguments (```app.py --PORT=5000```)
 
 Available settings:
@@ -93,7 +97,7 @@ Tests
 -----
 
 ```python
-python -m unittest mdpages.tests
+python -m unittest c2p2.tests
 ```
 
 Contribute

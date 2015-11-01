@@ -9,16 +9,13 @@ from slugify import slugify
 from tornado.ioloop import IOLoop
 from tornado.options import options
 
-from .extensions import TitleExtension, APIExtension
-from .utils import absolute_path
+from .utils import TitleExtension
 
 
 __all__ = ('SOURCE_FOLDER', 'Watcher', 'pages')
 
 
 logger = logging.getLogger(__name__)
-
-SOURCE_FOLDER = absolute_path(options.SOURCE_FOLDER)
 
 
 class Source(object):
@@ -52,7 +49,7 @@ class Source(object):
                 del self._sources[path]
 
 
-source = Source(root=SOURCE_FOLDER)
+source = Source(root=options.SOURCE_FOLDER)
 
 
 class Pages(object):
@@ -109,8 +106,7 @@ class Pages(object):
                 'markdown.extensions.admonition',
                 'markdown.extensions.codehilite',
                 'markdown.extensions.nl2br',
-                TitleExtension(),
-                APIExtension(),
+                TitleExtension()
             ])
             html = md.convert(source_md)
             created = md.Meta.get('created')
@@ -153,7 +149,7 @@ class Pages(object):
             ))
 
 
-pages = Pages(root=SOURCE_FOLDER)
+pages = Pages(root=options.SOURCE_FOLDER)
 
 
 class Watcher(object):

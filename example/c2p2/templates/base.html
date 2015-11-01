@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+        <link type="text/css" href="/c2p2/templates/style.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <aside>
+            <a href="{{ reverse_url('index') }}">&#x1f3e1;</a>
+            {% block navigation %}
+            {% end %}
+        </aside>
+        {% block content %}
+        {% end %}
+    </body>
+</html>

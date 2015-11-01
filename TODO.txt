@@ -4,3 +4,4 @@ TODO:
 - usage examples
 - replace `Index` link with `back` button
 - UPDATE tag
+- register extensions
