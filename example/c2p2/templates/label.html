@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block header %}labels > {{ title }}{% end %}
-{% block navigation %}
+{% block sidebar %}
 <ul>
     {% for label in labels %}
-        {% if label['slug'] != current %}
-            <li><a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a></li>
+        {% if label != current %}
+            <li><a href="{{ reverse_url('label', label.slug) }}">{{ label.title }}</a></li>
         {% else %}
-            <li class="selected">{{ label['title'] }}</li>
+            <li class="selected">{{ label.title }}</li>
         {% end %}
     {% end %}
 </ul>
@@ -16,7 +15,7 @@
 <section>
     <ul class="pages">
     {% for page in pages %}
-        <li><a href="{{ reverse_url('page', page['path']) }}">{{ page['title'] }}</a> <span>{{ page['created'].strftime('%B %d, %Y') }}</span></li>
+        <li><a href="{{ reverse_url('page', page.uri) }}">{{ page.title }}</a> <span>{{ page.created.strftime('%B %d, %Y') }}</span></li>
     {% end %}
     </ul>
 </section>

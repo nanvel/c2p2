@@ -11,15 +11,16 @@ from c2p2.handlers import GitHubPullHandler, PageHandler, SitemapHandler, LabelH
 from c2p2.models import Watcher
 
 
-application = web.Application(handlers=[
-        web.url(r'/pull', GitHubPullHandler, name='git-pull'),
+application = web.Application(
+    handlers=[
         web.url(r'/', LabelHandler, name='index'),
+        web.url(r'/pull', GitHubPullHandler, name='git-pull'),
         web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
         web.url(r'/robots\.txt', RobotsHandler, name='robots'),
         web.url(r'/label/(?P<slug>[\w/-]+)', LabelHandler, name='label'),
-        web.url(r'/(.+\.(?:png|jpg|css))',
+        web.url(r'/(.+\.(?:png|jpg|css|ico))',
             web.StaticFileHandler, {'path': options.options.SOURCE_FOLDER}, name='static'),
-        web.url(r'/(?P<path>[\w/-]+)', PageHandler, name='page'),
+        web.url(r'/(?P<uri>[\w/-]+)', PageHandler, name='page'),
     ],
     debug=options.options.DEBUG,
     template_path=os.path.join(options.options.SOURCE_FOLDER, 'c2p2', 'templates'),

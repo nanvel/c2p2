@@ -1,7 +1,35 @@
 TODO:
-- styles for custom elements
 - extend example page
 - usage examples
 - replace `Index` link with `back` button
 - UPDATE tag
 - register extensions
+- relative path to source folder
+- readme update
+- remove tag after page removed issue
+- clean up styles
+- highlight selected tag
+- page should be an object
+- use etag/modified to solve cluster sync problem
+- use .git folder to get last mofied / modified by and modified information
+
+cat .git/HEAD
+ref: refs/heads/master
+
+cat .git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@github.com:nanvel/c2p2.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+cat .git/logs/refs/heads/master
+0000000000000000000000000000000000000000 5418a9f529350d34b3111dbe3e0778032cc1d22b Oleksandr Polieno (nanvel) <polyenoom@gmail.com> 1446408899 +0200	clone: from git@github.com:nanvel/c2p2.git
+5418a9f529350d34b3111dbe3e0778032cc1d22b 51c58bab29dd99c0c832e9ab082fd36be675c7e9 Oleksandr Polieno (nanvel) <polyenoom@gmail.com> 1446413391 +0200	commit: renamed into c2p2
+
+https://pypi.python.org/pypi/GitPython/1.0.1

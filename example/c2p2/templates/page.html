@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block navigation %}
-    {% for label in page['labels'] %}
-        <a href="{{ reverse_url('label', label['slug']) }}">{{ label['title'] }}</a>
+{% block sidebar %}
+    {% for label in page.labels %}
+        <a href="{{ reverse_url('label', label.slug) }}">{{ label.title }}</a>
     {% end %}
-    <time datetime="{{ page['created'].strftime('%Y-%M-%d') }}" pubdate>{{ page['created'].strftime('%B %d, %Y') }}</time>{% if 'place' in page['meta'] %}; {{ page['meta']['place'][0] }}{% end %}
-    <a href="https://github.com/nanvel/blog/blob/master/{{ page['path'] }}.md" target="_blank">&#x270D; edit</a>
+    <time datetime="{{ page.created.strftime('%Y-%M-%d') }}" pubdate>{{ page.created.strftime('%B %d, %Y') }}</time>{% if 'place' in page.meta %}; {{ page.meta['place'][0] }}{% end %}
+    <a href="https://github.com/nanvel/blog/blob/master/{{ page.uri }}.md" target="_blank">&#x270D; edit</a>
 {% end %}
 {% block content %}
 <section>
     <article>
-        {% raw page['html'] %}
+        {% raw page.html %}
     </article>
 </section>
 {% end %}
