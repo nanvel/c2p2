@@ -9,7 +9,20 @@ from markdown.treeprocessors import Treeprocessor
 from markdown.util import string_type
 
 
-__all__ = ('TitleExtension',)
+__all__ = ('ExtensionsRegistry',)
+
+
+class ExtensionsRegistry(object):
+
+    _extensions = set()
+
+    @classmethod
+    def register(cls, extension):
+        cls._extensions.add(extension)
+
+    @classmethod
+    def list(cls):
+        return list(cls._extensions)
 
 
 class TitleTreeprocessor(Treeprocessor):
@@ -43,3 +56,6 @@ class TitleExtension(Extension):
 
     def reset(self):
         self.md.title = ''
+
+
+ExtensionsRegistry.register(extension=TitleExtension)

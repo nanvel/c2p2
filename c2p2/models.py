@@ -10,7 +10,7 @@ from slugify import slugify
 from tornado.ioloop import IOLoop
 from tornado.options import options
 
-from .utils import TitleExtension
+from .utils import ExtensionsRegistry
 
 
 __all__ = ('Watcher', 'pages', 'label_pages', 'labels', 'Label')
@@ -19,7 +19,23 @@ __all__ = ('Watcher', 'pages', 'label_pages', 'labels', 'Label')
 logger = logging.getLogger(__name__)
 
 
-SOURCE_EXTENSION = '.md'
+SOURCE_SUFFIX = '.md'
+
+
+def get_md_extensions():
+    extensions = [
+        'markdown.extensions.toc',
+        'markdown.extensions.meta',
+        'markdown.extensions.attr_list',
+        'markdown.extensions.fenced_code',
+        'markdown.extensions.admonition',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.nl2br',
+    ]
+    extensions.extend([
+        extension() for extension in ExtensionsRegistry.list()
+    ])
+    return extensions
 
 
 class Label(object):
@@ -70,16 +86,7 @@ class Page(object):
         with open(self.path, 'r') as f:
             source_md = f.read()
 
-        md = Markdown(extensions=[
-            'markdown.extensions.toc',
-            'markdown.extensions.meta',
-            'markdown.extensions.attr_list',
-            'markdown.extensions.fenced_code',
-            'markdown.extensions.admonition',
-            'markdown.extensions.codehilite',
-            'markdown.extensions.nl2br',
-            TitleExtension()
-        ])
+        md = Markdown(extensions=get_md_extensions())
 
         self.html = md.convert(source_md)
 
@@ -117,7 +124,7 @@ class Source(object):
         self._root = root
 
     def path_to_uri(self, path):
-        uri = path.split(self._root)[-1][:-len(SOURCE_EXTENSION)]
+        uri = path.split(self._root)[-1][:-len(SOURCE_SUFFIX)]
         if uri[0] == '/':
             return uri[1:]
         return uri
@@ -127,7 +134,7 @@ class Source(object):
         found = []
         for root, dirs, files in os.walk(self._root):
             for f in files:
-                if f.endswith(SOURCE_EXTENSION):
+                if f.endswith(SOURCE_SUFFIX):
                     path = os.path.join(root, f)
                     found.append(path)
                     modified = time.ctime(os.path.getmtime(path))
@@ -141,7 +148,7 @@ class Source(object):
         # look for deleted files
         for path in list(self._sources.keys()):
             if path not in found:
-                delete_cb(self.path_to_uri(path=path), path)
+                delete_cb(self.path_to_uri(path=path))
                 del self._sources[path]
 
 
@@ -157,7 +164,7 @@ def _update_page(uri, path):
         pages[uri] = Page(uri=uri, path=path)
 
 
-def _delete_page(uri, path):
+def _delete_page(uri):
     """Delete page from pages dict."""
     if uri in pages:
         del pages[uri]
@@ -186,16 +193,14 @@ def label_pages(label):
     )
 
 
-source = Source(root=options.SOURCE_FOLDER)
-
-
 class Watcher(object):
 
     def __init__(self):
         self.ioloop = IOLoop.instance()
+        self.source = Source(root=options.SOURCE_FOLDER)
 
     def watch(self, repeat=True):
-        source.scan(
+        self.source.scan(
             update_cb=_update_page,
             delete_cb=_delete_page
         )
