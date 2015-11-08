@@ -7,6 +7,17 @@
 
 ## Usage
 
+### Init
+
+```bash
+virtualenv venv --no-site-packages -p /usr/local/bin/python3.5
+source venv/bin/activate
+pip install c2p2
+python engine/main.py --DEFAULT_LABEL=blog
+```
+
+### Production
+
 Supervisor configuration:
 ```conf
 [program:blog]
