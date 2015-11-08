@@ -41,7 +41,7 @@ def read(fname):
 
 setup(
     name="c2p2",
-    version='0.0.2',
+    version='0.0.3',
     description="Code Commit Push Publish blogging/docs engine.",
     long_description=read('README.md'),
     license='The MIT License',

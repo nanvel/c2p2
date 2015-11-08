@@ -3,3 +3,6 @@
 
 === 0.0.2 ===
 - fixed readme and requirements
+
+=== 0.0.3 ===
+- fixed sitemap handler

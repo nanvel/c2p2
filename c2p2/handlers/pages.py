@@ -35,7 +35,7 @@ class SitemapHandler(RequestHandler):
     SUPPORTED_METHODS = ('GET',)
 
     def get(self):
-        pages_list = (page for page in pages if page.visible)
+        pages_list = (page for page in pages.values() if page.visible)
         self.render('sitemap.xml', pages=pages_list)
 
 

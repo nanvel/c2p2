@@ -71,8 +71,6 @@ Available settings:
 
 - ```DEBUG```: Enable debug mode
 - ```PORT```: Port app listening to
-- ```SITE_NAME```: Site name, show in title
-- ```BASE_URL```: Site base url, uses in sitemap.xml
 - ```SOURCE_FOLDER```: Path to the folder contains pages source
 - ```DEFAULT_LABEL```: Default label (for index page)
 - ```WATCH```: Watch for changes in the source files
