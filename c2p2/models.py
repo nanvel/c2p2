@@ -188,7 +188,7 @@ def label_pages(label):
     """Returns list of pages with specified label."""
     return (
         page for page in sorted(
-            pages.values(), key=lambda i: i.created
+            pages.values(), key=lambda i: i.created, reverse=True
         ) if (label in page.labels and page.visible)
     )
 
