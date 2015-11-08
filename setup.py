@@ -28,9 +28,7 @@ http://docs.python.org/2/distutils/sourcedist.html
 
 """
 import os
-import uuid
 
-from pip.req import parse_requirements
 from setuptools import setup, find_packages
 
 
@@ -41,14 +39,11 @@ def read(fname):
         return ''
 
 
-REQUIREMENTS = [str(r.req) for r in parse_requirements('requirements.txt', session=uuid.uuid1())]
-
-
 setup(
     name="c2p2",
-    version='0.0.1',
+    version='0.0.2',
     description="Code Commit Push Publish blogging/docs engine.",
-    long_description=read('README.rst'),
+    long_description=read('README.md'),
     license='The MIT License',
     platforms=['OS Independent'],
     keywords='tornado, github, blog, publish',
@@ -56,7 +51,12 @@ setup(
     author_email='polyenoom@gmail.com',
     url="https://github.com/nanvel/c2p2",
     packages=find_packages(),
-    package_data={'': ['requirements.txt']},
-    include_package_data=True,
-    install_requires=REQUIREMENTS,
+    install_requires=[
+        'tornado==4.2',
+        'Markdown==2.6.2',
+        'Pygments==2.0.2',
+        'arrow==0.6.0',
+        'python-slugify==1.1.3',
+        'ipaddress==1.0.14',
+    ]
 )
