@@ -1,10 +1,10 @@
 C2P2 - Simple markdown pages publisher
 ======================================
 
-**C**ode
-**C**ommit
-**P**ush
-**P**ublish
+**C**\ ode
+**C**\ ommit
+**P**\ ush
+**P**\ ublish
 
 Usage
 -----
