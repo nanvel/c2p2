@@ -1,7 +1,10 @@
 C2P2 - Simple markdown pages publisher
 ======================================
 
-**C**ode -> **C**ommit -> **P**ush -> **P**ublish
+**C**ode
+**C**ommit
+**P**ush
+**P**ublish
 
 Usage
 -----
@@ -9,6 +12,7 @@ Usage
 Init
 
 .. code-block:: bash
+
     virtualenv venv --no-site-packages -p /usr/local/bin/python3.5
     source venv/bin/activate
     pip install c2p2
@@ -19,6 +23,7 @@ Production
 Supervisor configuration:
 
 .. code-block:: conf
+
     [program:blog]
     process_name=blog
     directory=/home/user/blog
@@ -33,6 +38,7 @@ Supervisor configuration:
 Nginx configuration:
 
 .. code-block:: nginx
+
     upstream blog {
         server 127.0.0.1:5000;
     }
@@ -81,11 +87,13 @@ GitHub web hook
 Executes ``<SOURCE_FOLDER>/pull.sh`` script:
 
 .. code-block:: bash
+
     cd .. && git checkout master && git pull origin master
 
 Requires permission:
 
 .. code-block:: bash
+
     chmod +x pull.sh
 
 Contribute
@@ -93,7 +101,8 @@ Contribute
 
 If you want to contribute to this project, please perform the following steps:
 
-..code-block:: bash
+.. code-block:: bash
+
     # Fork this repository
     $ virtualenv .env --no-site-packages -p /usr/local/bin/python3.3
     $ source .env/bin/activate
