@@ -1,5 +1,4 @@
 TODO:
-- README md -> rst
 - update docs
 - usage example
 - use etag/modified to solve cluster sync problem

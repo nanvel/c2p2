@@ -3,7 +3,6 @@ import os.path
 from tornado import gen
 from tornado.options import options
 from tornado.process import Subprocess
-from tornado.httpclient import HTTPError
 
 from .path import rel
 

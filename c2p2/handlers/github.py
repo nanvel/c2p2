@@ -10,6 +10,7 @@ from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPError
 from tornado.options import options
 from tornado.web import RequestHandler
 
+from ..models import Watcher
 from ..utils import github_pull
 
 
@@ -30,7 +31,7 @@ class GitHubPullHandler(RequestHandler):
             remote_ip = self.request.headers.get('X-Real-IP')
             remote_ip = remote_ip or self.request.remote_ip
             remote_ip = ip_address(str(remote_ip))
-            headers = {'Content-Type': 'application/json; charset=UTF-8', 'User-Agent': 'mdpages'}
+            headers = {'Content-Type': 'application/json; charset=UTF-8', 'User-Agent': 'c2p2'}
             request = HTTPRequest(self.GITHUB_URL_META, method='GET', headers=headers)
             response = yield AsyncHTTPClient().fetch(request)
             white_list = json.loads(response.body.decode('utf8'))['hooks']
@@ -53,7 +54,7 @@ class GitHubPullHandler(RequestHandler):
             if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
                 raise HTTPError(code=403)
 
-        logging.warning('GutHub pull ...')
+        logging.warning('GitHub pull ...')
 
         event = self.request.headers.get('X-GitHub-Event', 'ping')
         self.set_header('Content-Type', 'application/json')
@@ -64,8 +65,10 @@ class GitHubPullHandler(RequestHandler):
             return
 
         if event == 'push':
-            ref = json.loads(self.request.body.decode('utf8'))['ref']
-            if ref == 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
+            data = json.loads(self.request.body.decode('utf8'))
+            if data['ref'] == 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
                 result, error = yield github_pull()
                 logger.warning(result)
                 logger.warning(error)
+                # update
+                Watcher().watch(repeat=False)

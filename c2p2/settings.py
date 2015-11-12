@@ -3,7 +3,7 @@ import os
 from tornado import options
 
 
-__all__ = []
+__all__ = tuple()
 
 
 DEFAULT = {

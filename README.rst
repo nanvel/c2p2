@@ -57,7 +57,7 @@ Nginx configuration:
             proxy_pass http://blog;
         }
 
-        location ~* \.(?:css|png|jpe?g|gif|ico)$ {
+        location ~* \.(?:css|png|jpe?g|gif|ico|zip)$ {
             root /home/user/blog;
             log_not_found off;
         }
@@ -76,7 +76,7 @@ Available settings:
     - ``PORT``: Port app listening to
     - ``SOURCE_FOLDER``: Path to the folder contains pages source
     - ``DEFAULT_LABEL``: Default label (for index page)
-    - ``WATCH``: Watch for changes in the source files
+    - ``WATCH``: Watch for changes in the source files periodically
     - ``GITHUB_VALIDATE_IP``: Enable github ip validation
     - ``GITHUB_SECRET``: GitHub hooks secret, not required
     - ``GITHUB_BRANCH``: GitHub branch to watch
@@ -104,7 +104,7 @@ If you want to contribute to this project, please perform the following steps:
 .. code-block:: bash
 
     # Fork this repository
-    $ virtualenv .env --no-site-packages -p /usr/local/bin/python3.3
+    $ virtualenv .env --no-site-packages -p /usr/local/bin/python3.5
     $ source .env/bin/activate
     $ python setup.py install
     $ pip install -r requirements.txt
