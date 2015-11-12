@@ -43,7 +43,7 @@ setup(
     name="c2p2",
     version='0.0.3',
     description="Code Commit Push Publish blogging/docs engine.",
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
     keywords='tornado, github, blog, publish',

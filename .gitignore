@@ -2,3 +2,5 @@
 venv
 *.pyc
 .DS_Store
+c2p2.egg-info
+dist
