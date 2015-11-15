@@ -10,7 +10,7 @@ from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPError
 from tornado.options import options
 from tornado.web import RequestHandler
 
-from ..models import Watcher
+from ..models import Site
 from ..utils import github_pull
 
 
@@ -71,4 +71,4 @@ class GitHubPullHandler(RequestHandler):
                 logger.warning(result)
                 logger.warning(error)
                 # update
-                Watcher().watch(repeat=False)
+                Site().update()

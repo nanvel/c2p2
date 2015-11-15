@@ -1,4 +1,3 @@
-import datetime
 import logging
 import os
 import time
@@ -7,35 +6,18 @@ import arrow
 
 from markdown import Markdown
 from slugify import slugify
-from tornado.ioloop import IOLoop
 from tornado.options import options
 
 from .utils import ExtensionsRegistry
 
 
-__all__ = ('Watcher', 'pages', 'label_pages', 'labels', 'Label')
+__all__ = ('Label', 'Site')
 
 
 logger = logging.getLogger(__name__)
 
 
 SOURCE_SUFFIX = '.md'
-
-
-def get_md_extensions():
-    extensions = [
-        'markdown.extensions.toc',
-        'markdown.extensions.meta',
-        'markdown.extensions.attr_list',
-        'markdown.extensions.fenced_code',
-        'markdown.extensions.admonition',
-        'markdown.extensions.codehilite',
-        'markdown.extensions.nl2br',
-    ]
-    extensions.extend([
-        extension() for extension in ExtensionsRegistry.list()
-    ])
-    return extensions
 
 
 class Label(object):
@@ -72,6 +54,19 @@ class Page(object):
         self.labels = set()
         self.visible = True
 
+        self._md_extensions = [
+            'markdown.extensions.toc',
+            'markdown.extensions.meta',
+            'markdown.extensions.attr_list',
+            'markdown.extensions.fenced_code',
+            'markdown.extensions.admonition',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.nl2br',
+        ]
+        self._md_extensions.extend([
+            extension() for extension in ExtensionsRegistry.list()
+        ])
+
         self.update()
 
     def __hash__(self):
@@ -86,7 +81,7 @@ class Page(object):
         with open(self.path, 'r') as f:
             source_md = f.read()
 
-        md = Markdown(extensions=get_md_extensions())
+        md = Markdown(extensions=self._md_extensions)
 
         self.html = md.convert(source_md)
 
@@ -152,65 +147,64 @@ class Source(object):
                 del self._sources[path]
 
 
-pages = {}
-labels = set()
-
-
-def _update_page(uri, path):
-    """Update page content."""
-    if uri in pages:
-        pages[uri].update()
-    else:
-        pages[uri] = Page(uri=uri, path=path)
-
-
-def _delete_page(uri):
-    """Delete page from pages dict."""
-    if uri in pages:
-        del pages[uri]
-
-
-def _update_labels():
-    """Updates list of available labels."""
-    global labels
-    _labels = set()
-    for page in pages.values():
-        for label in page.labels:
-            _labels.add(label)
-    to_delete = labels - _labels
-    for label in _labels:
-        labels.add(label)
-    for label in to_delete:
-        labels.discard(label)
-
-
-def label_pages(label):
-    """Returns list of pages with specified label."""
-    return (
-        page for page in sorted(
-            pages.values(), key=lambda i: i.created, reverse=True
-        ) if (label in page.labels and page.visible)
-    )
-
-
-class Watcher(object):
+class Site(object):
 
     _instance = None
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(Watcher, cls).__new__(cls)
+            cls._instance = super(Site, cls).__new__(cls)
         return cls._instance
 
     def __init__(self):
-        self.ioloop = IOLoop.instance()
-        self.source = Source(root=options.SOURCE_FOLDER)
+        self._pages = {}
+        self._labels = set()
+        self._source = Source(root=options.SOURCE_FOLDER)
 
-    def watch(self, repeat=True):
-        self.source.scan(
-            update_cb=_update_page,
-            delete_cb=_delete_page
+    def _update_page(self, uri, path):
+        """Update page content."""
+        if uri in self._pages:
+            self._pages[uri].update()
+        else:
+            self._pages[uri] = Page(uri=uri, path=path)
+
+    def _delete_page(self, uri):
+        """Delete page from pages dict."""
+        if uri in self._pages:
+            del self._pages[uri]
+
+    def _update_labels(self):
+        """Updates list of available labels."""
+        labels = set()
+        for page in self._pages.values():
+            for label in page.labels:
+                labels.add(label)
+        to_delete = self._labels - labels
+        for label in labels:
+            self._labels.add(label)
+        for label in to_delete:
+            self._labels.discard(label)
+
+    def get_labels(self):
+        return self._labels
+
+    def get_pages(self, label=None):
+        """Returns list of pages with specified label."""
+        return (
+            page for page in sorted(
+                self._pages.values(), key=lambda i: i.created, reverse=True
+            ) if ((not label or label in page.labels) and page.visible)
         )
-        _update_labels()
-        if repeat:
-            self.ioloop.add_timeout(deadline=datetime.timedelta(seconds=2), callback=self.watch)
+
+    def get_page(self, uri):
+        page = self._pages.get(uri)
+        if page and page.visible:
+            return page
+        return None
+
+    def update(self):
+        self._source.scan(
+            update_cb=self._update_page,
+            delete_cb=self._delete_page
+        )
+        self._update_labels()

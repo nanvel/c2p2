@@ -1,5 +1,16 @@
 TODO:
 - update docs
 - usage example
-- use etag/modified to solve cluster sync problem
-- update on commit (alternative watcher)
+
+Docs:
+- how set up an icon
+- how to customize templates
+- how to pass custom variables md -> template
+- run the server locally
+- github web hook configuration
+- default template, fork me (with docs / usage examples) (c2p2.nanvel.com)
+- custom directives how to
+- bool for settings
+- watch -> update
+- visible -> draft
+- labels should be optional

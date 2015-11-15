@@ -8,7 +8,7 @@ from tornado import options
 from tornado import web
 
 from .handlers import GitHubPullHandler, PageHandler, SitemapHandler, LabelHandler, RobotsHandler
-from .models import Watcher
+from .models import Site
 
 
 __all__ = ('run',)
@@ -33,5 +33,11 @@ def run(source_folder):
     )
 
     application.listen(port=options.options.PORT)
-    Watcher().watch(repeat=options.options.WATCH)
-    IOLoop.instance().start()
+
+    site = Site()
+    site.update()
+
+    ioloop = IOLoop.instance()
+    if options.options.WATCH:
+        ioloop.PeriodicCallback(site.update(), 5 * 1000).start()
+    ioloop.start()
