@@ -1,8 +1,8 @@
 from tornado.httpclient import HTTPError
-from tornado.options import options
 from tornado.web import RequestHandler
 
 from ..models import Label, Site
+from ..settings import settings
 
 
 __all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler')
@@ -23,7 +23,7 @@ class LabelHandler(RequestHandler):
 
     SUPPORTED_METHODS = ('GET',)
 
-    def get(self, slug=options.DEFAULT_LABEL):
+    def get(self, slug=settings.DEFAULT_LABEL):
         label = Label(slug, slug=slug)
         site = Site()
         self.render('label.html', pages=site.get_pages(label=label), labels=site.get_labels(), current=label)

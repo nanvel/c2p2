@@ -7,10 +7,10 @@ from hashlib import sha1
 
 from tornado import gen
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPError
-from tornado.options import options
 from tornado.web import RequestHandler
 
 from ..models import Site
+from ..settings import settings
 from ..utils import github_pull
 
 
@@ -27,7 +27,7 @@ class GitHubPullHandler(RequestHandler):
 
     @gen.coroutine
     def post(self):
-        if options.GITHUB_VALIDATE_IP:
+        if settings.GITHUB_VALIDATE_IP:
             remote_ip = self.request.headers.get('X-Real-IP')
             remote_ip = remote_ip or self.request.remote_ip
             remote_ip = ip_address(str(remote_ip))
@@ -42,14 +42,14 @@ class GitHubPullHandler(RequestHandler):
             else:
                 raise HTTPError(code=403)
 
-        if options.GITHUB_SECRET:
+        if settings.GITHUB_SECRET:
             # only SHA1 is supported
             sha_name, signature = self.request.headers.get('X-Hub-Signature').split('=')
             if sha_name != 'sha1':
                 raise HTTPError(code=501)
 
             # HMAC requires the key to be bytes, but data is string
-            mac = hmac.new(options.GITHUB_SECRET.encode(), msg=self.request.body, digestmod=sha1)
+            mac = hmac.new(settings.GITHUB_SECRET.encode(), msg=self.request.body, digestmod=sha1)
 
             if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
                 raise HTTPError(code=403)
@@ -66,7 +66,7 @@ class GitHubPullHandler(RequestHandler):
 
         if event == 'push':
             data = json.loads(self.request.body.decode('utf8'))
-            if data['ref'] == 'refs/heads/{branch}'.format(branch=options.GITHUB_BRANCH):
+            if data['ref'] == 'refs/heads/{branch}'.format(branch=settings.GITHUB_BRANCH):
                 result, error = yield github_pull()
                 logger.warning(result)
                 logger.warning(error)

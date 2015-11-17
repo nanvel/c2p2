@@ -6,8 +6,8 @@ import arrow
 
 from markdown import Markdown
 from slugify import slugify
-from tornado.options import options
 
+from .settings import settings
 from .utils import ExtensionsRegistry
 
 
@@ -103,7 +103,7 @@ class Page(object):
 
         self.meta = md.Meta
 
-        self.visible = 'hide' not in md.Meta or md.Meta['hide'][0].lower() != 'true'
+        self.visible = ('visible' not in md.Meta) or (md.Meta['visible'][0].lower() != 'false')
 
         self.labels = set()
         for label in md.Meta.get('labels', []):
@@ -150,16 +150,21 @@ class Source(object):
 class Site(object):
 
     _instance = None
+    _source = None
+    _pages = {}
+    _labels = set()
 
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Site, cls).__new__(cls)
+            cls._instance.reset()
         return cls._instance
 
-    def __init__(self):
-        self._pages = {}
-        self._labels = set()
-        self._source = Source(root=options.SOURCE_FOLDER)
+    @classmethod
+    def reset(cls):
+        cls._source = Source(root=settings.SOURCE_FOLDER)
+        cls._pages = {}
+        cls._labels = set()
 
     def _update_page(self, uri, path):
         """Update page content."""

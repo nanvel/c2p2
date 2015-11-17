@@ -11,6 +11,15 @@ Docs:
 - default template, fork me (with docs / usage examples) (c2p2.nanvel.com)
 - custom directives how to
 - bool for settings
-- watch -> update
 - visible -> draft
 - labels should be optional
+- complex labels
+- optimize sitemap (remove repeats)
+- remove pull.sh
+- You can specify settings in main.py
+- version as
+```
+version = "4.2"
+version_info = (4, 2, 0, 0)
+```
+- error pages

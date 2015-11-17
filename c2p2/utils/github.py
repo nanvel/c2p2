@@ -1,9 +1,9 @@
 import os.path
 
 from tornado import gen
-from tornado.options import options
 from tornado.process import Subprocess
 
+from ..settings import settings
 from .path import rel
 
 
@@ -13,7 +13,7 @@ __all__ = ('github_pull',)
 @gen.coroutine
 def github_pull():
 
-    script_path = os.path.join(rel(options.SOURCE_FOLDER), 'pull.sh')
+    script_path = os.path.join(rel(settings.SOURCE_FOLDER), 'pull.sh')
     if not os.path.exists(script_path):
         raise gen.Return(None)
 
