@@ -1,7 +1,6 @@
 import os
 
 from tornado import options
-from tornado.options import options as settings
 
 
 __all__ = ('settings',)
@@ -31,3 +30,6 @@ for name, v in DEFAULT.items():
 
 
 options.parse_command_line()
+
+
+settings = options.options

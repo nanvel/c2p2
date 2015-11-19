@@ -17,7 +17,7 @@ def github_pull():
         stderr=Subprocess.STREAM
     )
 
-    yield gen.Task(sub_process.stdin.write, 'pull origin {branch}'.format(branch=settings.GITHUB_BRANCH))
+    yield gen.Task(sub_process.stdin.write, ('pull origin {branch}'.format(branch=settings.GITHUB_BRANCH)).encode())
     sub_process.stdin.close()
 
     result, error = yield [
