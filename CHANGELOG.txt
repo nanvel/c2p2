@@ -6,3 +6,10 @@
 
 === 0.0.3 ===
 - fixed sitemap handler
+
+=== 0.1.0 ===
+- updated data models
+- updated settings
+- improvements in setup.py
+- docs
+

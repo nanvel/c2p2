@@ -31,32 +31,32 @@ import os
 
 from setuptools import setup, find_packages
 
+from c2p2 import VERSION
 
-def read(fname):
+
+def read(file_name):
     try:
-        return open(os.path.join(os.path.dirname(__file__), fname)).read()
+        return open(os.path.join(os.path.dirname(__file__), file_name)).read()
     except IOError:
         return ''
 
 
+def parse_requirements():
+    requirements_text = read(file_name='requirements.txt')
+    return (line.strip() for line in requirements_text.split('\n') if '=' in line)
+
+
 setup(
     name="c2p2",
-    version='0.0.3',
-    description="Code Commit Push Publish blogging/docs engine.",
-    long_description=read('README.rst'),
-    license='The MIT License',
+    version=VERSION,
+    description="Code Commit Push Publish engine.",
+    long_description=read(file_name='README.rst'),
+    license="The MIT License",
     platforms=['OS Independent'],
     keywords='tornado, github, blog, publish',
     author='Oleksandr Polieno',
     author_email='polyenoom@gmail.com',
-    url="https://github.com/nanvel/c2p2",
+    url='https://github.com/nanvel/c2p2',
     packages=find_packages(),
-    install_requires=[
-        'tornado==4.2',
-        'Markdown==2.6.2',
-        'Pygments==2.0.2',
-        'arrow==0.6.0',
-        'python-slugify==1.1.3',
-        'ipaddress==1.0.14',
-    ]
+    install_requires=parse_requirements()
 )

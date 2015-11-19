@@ -181,7 +181,7 @@ class Site(object):
     def _update_labels(self):
         """Updates list of available labels."""
         labels = set()
-        for page in self._pages.values():
+        for page in self.get_pages():
             for label in page.labels:
                 labels.add(label)
         to_delete = self._labels - labels

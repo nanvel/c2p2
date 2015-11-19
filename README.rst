@@ -81,21 +81,6 @@ Available settings:
     - ``GITHUB_SECRET``: GitHub hooks secret, not required
     - ``GITHUB_BRANCH``: GitHub branch to watch
 
-GitHub web hook
----------------
-
-Executes ``<SOURCE_FOLDER>/pull.sh`` script:
-
-.. code-block:: bash
-
-    cd .. && git checkout master && git pull origin master
-
-Requires permission:
-
-.. code-block:: bash
-
-    chmod +x pull.sh
-
 Contribute
 ----------
 
