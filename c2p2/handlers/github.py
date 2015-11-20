@@ -7,11 +7,11 @@ from hashlib import sha1
 
 from tornado import gen
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPError
-from tornado.web import RequestHandler
 
 from ..models import Site
 from ..settings import settings
 from ..utils import github_pull
+from .base import C2P2Handler
 
 
 __all__ = ('GitHubPullHandler',)
@@ -20,7 +20,7 @@ __all__ = ('GitHubPullHandler',)
 logger = logging.getLogger(__name__)
 
 
-class GitHubPullHandler(RequestHandler):
+class GitHubPullHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('POST',)
     GITHUB_URL_META = 'https://api.github.com/meta'

@@ -1,6 +1,11 @@
 TODO:
+- fix github pull
 - update docs
 - usage example
+- index label or page
+- error pages
+error_page 500 502 503 504 /engine/templates/500.html;
+error_page 400 402 403 404 /engine/templates/400.html;
 
 Docs:
 - how set up an icon
@@ -12,4 +17,4 @@ Docs:
 - custom directives how to
 - labels should be optional
 - You can specify settings in main.py
-- error pages
+

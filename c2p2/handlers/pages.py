@@ -1,14 +1,14 @@
 from tornado.httpclient import HTTPError
-from tornado.web import RequestHandler
 
 from ..models import Label, Site
 from ..settings import settings
+from .base import C2P2Handler
 
 
 __all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler')
 
 
-class PageHandler(RequestHandler):
+class PageHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('GET',)
 
@@ -19,7 +19,7 @@ class PageHandler(RequestHandler):
         self.render('page.html', page=page)
 
 
-class LabelHandler(RequestHandler):
+class LabelHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('GET',)
 
@@ -29,7 +29,7 @@ class LabelHandler(RequestHandler):
         self.render('label.html', pages=site.get_pages(label=label), labels=site.get_labels(), current=label)
 
 
-class SitemapHandler(RequestHandler):
+class SitemapHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('GET',)
 
@@ -37,7 +37,7 @@ class SitemapHandler(RequestHandler):
         self.render('sitemap.xml', pages=Site().get_pages())
 
 
-class RobotsHandler(RequestHandler):
+class RobotsHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('GET',)
 

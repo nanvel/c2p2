@@ -191,7 +191,7 @@ class Site(object):
             self._labels.discard(label)
 
     def get_labels(self):
-        return self._labels
+        return sorted(list(self._labels), key=lambda i: i.slug)
 
     def get_pages(self, label=None):
         """Returns list of pages with specified label."""
