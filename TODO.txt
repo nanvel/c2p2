@@ -6,6 +6,7 @@ TODO:
 - error pages
 error_page 500 502 503 504 /engine/templates/500.html;
 error_page 400 402 403 404 /engine/templates/400.html;
+- tests
 
 Docs:
 - how set up an icon
