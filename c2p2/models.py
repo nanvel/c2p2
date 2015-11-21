@@ -38,6 +38,24 @@ class Label(object):
         return 'Label(title={title}, slug={slug})'.format(title=self.title, slug=self.slug)
 
 
+class PageMeta(object):
+
+    def __init__(self, meta):
+        self.meta = meta
+
+    def get_list(self, item):
+        return self.meta.get(item, [])
+
+    def get(self, item):
+        result = self.meta.get(item)
+        if result and len(result):
+            return result[0]
+        return None
+
+    def __getattr__(self, item):
+        return self.get(item=item)
+
+
 class Page(object):
 
     def __init__(self, uri, path):
@@ -85,28 +103,30 @@ class Page(object):
 
         self.html = md.convert(source_md)
 
-        created = md.Meta.get('created')
-        modified = md.Meta.get('modified')
+        self.meta = PageMeta(meta=md.Meta)
+
+        modified = self.meta.modified
+        created = self.meta.created
+
         if created:
-            created = arrow.get(created[0]).datetime
+            created = arrow.get(created).datetime
         else:
             created = arrow.get(os.path.getctime(self.path)).datetime
 
         if modified:
-            modified = arrow.get(modified[0]).datetime
+            modified = arrow.get(modified).datetime
         else:
             modified = created
+
         self.created = created
         self.modified = modified
 
-        self.title = md.Meta['title'][0] if md.Meta.get('title') else md.title
+        self.title = self.meta.title or md.title
 
-        self.meta = md.Meta
-
-        self.visible = ('visible' not in md.Meta) or (md.Meta['visible'][0].lower() != 'false')
+        self.visible = str(self.meta.visible).lower() != 'false'
 
         self.labels = set()
-        for label in md.Meta.get('labels', []):
+        for label in self.meta.get_list('labels'):
             self.labels.add(Label(label))
 
 

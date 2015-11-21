@@ -1,11 +1,8 @@
-from tornado.httpclient import HTTPError
-
-from ..models import Label, Site
-from ..settings import settings
+from ..context import Context
 from .base import C2P2Handler
 
 
-__all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler')
+__all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler', 'IndexHandler')
 
 
 class PageHandler(C2P2Handler):
@@ -13,20 +10,23 @@ class PageHandler(C2P2Handler):
     SUPPORTED_METHODS = ('GET',)
 
     def get(self, uri):
-        page = Site().get_page(uri)
-        if not page:
-            raise HTTPError(code=404)
-        self.render('page.html', page=page)
+        self.render('page.html', c=Context(uri=uri))
+
+
+class IndexHandler(C2P2Handler):
+
+    SUPPORTED_METHODS = ('GET',)
+
+    def get(self):
+        self.render('index.html', c=Context())
 
 
 class LabelHandler(C2P2Handler):
 
     SUPPORTED_METHODS = ('GET',)
 
-    def get(self, slug=settings.DEFAULT_LABEL):
-        label = Label(slug, slug=slug)
-        site = Site()
-        self.render('label.html', pages=site.get_pages(label=label), labels=site.get_labels(), current=label)
+    def get(self, slug):
+        self.render('label.html', c=Context(label=slug))
 
 
 class SitemapHandler(C2P2Handler):
@@ -34,7 +34,7 @@ class SitemapHandler(C2P2Handler):
     SUPPORTED_METHODS = ('GET',)
 
     def get(self):
-        self.render('sitemap.xml', pages=Site().get_pages())
+        self.render('sitemap.xml', c=Context())
 
 
 class RobotsHandler(C2P2Handler):

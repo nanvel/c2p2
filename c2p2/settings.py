@@ -10,7 +10,6 @@ DEFAULT = {
     'DEBUG': (bool, True, "Enable debug mode."),
     'PORT': (int, 5000, "Port app listening to."),
     'SOURCE_FOLDER': (str, '..', "Relative or absolute path to the folder contains pages source."),
-    'DEFAULT_LABEL': (str, 'public', "Default label (for index page)."),
     'UPDATE_TIMEOUT': (int, 2, "Rescan source folder for updates every number of seconds, 0 - disable."),
     'GITHUB_VALIDATE_IP': (bool, True, "Enable github ip validation."),
     'GITHUB_SECRET': (str, '', "GitHub hooks secret, not required."),

@@ -1,12 +1,12 @@
 TODO:
-- fix github pull
+- index label or page (index page is better), remove DEFAULT_LABEL
+- tests
 - update docs
 - usage example
-- index label or page
-- error pages
-error_page 500 502 503 504 /engine/templates/500.html;
-error_page 400 402 403 404 /engine/templates/400.html;
-- tests
+- border around images
+- http://www.tornadoweb.org/en/stable/guide/templates.html
+- less compiller
+- https://pypi.python.org/pypi/libsass
 
 Docs:
 - how set up an icon
@@ -18,4 +18,11 @@ Docs:
 - custom directives how to
 - labels should be optional
 - You can specify settings in main.py
+error_page 500 502 503 504 /engine/templates/500.html;
+error_page 400 402 403 404 /engine/templates/400.html;
+- label means that page belongs to some category
+- edit on github link how to
+- templates required
+- context available
+- google tracking code howto
 

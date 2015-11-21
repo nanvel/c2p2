@@ -12,4 +12,5 @@
 - updated settings
 - improvements in setup.py
 - docs
+- error pages
 
