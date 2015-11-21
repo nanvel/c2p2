@@ -1,12 +1,6 @@
 TODO:
-- index label or page (index page is better), remove DEFAULT_LABEL
-- tests
 - update docs
 - usage example
-- border around images
-- http://www.tornadoweb.org/en/stable/guide/templates.html
-- less compiller
-- https://pypi.python.org/pypi/libsass
 
 Docs:
 - how set up an icon
@@ -25,4 +19,7 @@ error_page 400 402 403 404 /engine/templates/400.html;
 - templates required
 - context available
 - google tracking code howto
+- http://www.tornadoweb.org/en/stable/guide/templates.html
+- how to run tests
+
 

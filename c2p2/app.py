@@ -11,9 +11,8 @@ from .settings import settings
 __all__ = ('run',)
 
 
-def run():
-
-    application = web.Application(
+def create_application():
+    return web.Application(
         handlers=[
             web.url(r'/', IndexHandler, name='index'),
             web.url(r'/pull', GitHubPullHandler, name='git-pull'),
@@ -28,6 +27,10 @@ def run():
         template_path=os.path.join(settings.SOURCE_FOLDER, 'engine', 'templates'),
     )
 
+
+def run():
+
+    application = create_application()
     application.listen(port=settings.PORT)
 
     Site().update()
