@@ -22,6 +22,11 @@ or
 Usage
 -----
 
+Fork c2p2_template
+~~~~~~~~~~~~~~~~~~
+
+The easiest way to start is to fork this template: https://github.com/nanvel/c2p2_template.
+
 Templates API
 ~~~~~~~~~~~~~
 
