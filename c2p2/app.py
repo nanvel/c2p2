@@ -3,7 +3,7 @@ import os.path
 from tornado import web
 from tornado.ioloop import IOLoop, PeriodicCallback
 
-from .handlers import GitHubPullHandler, PageHandler, SitemapHandler, LabelHandler, RobotsHandler, IndexHandler
+from .handlers import GitHubPullHandler, PageHandler, SitemapHandler, LabelHandler, IndexHandler
 from .models import Site
 from .settings import settings
 
@@ -17,7 +17,6 @@ def create_application():
             web.url(r'/', IndexHandler, name='index'),
             web.url(r'/pull', GitHubPullHandler, name='git-pull'),
             web.url(r'/sitemap\.xml', SitemapHandler, name='sitemap'),
-            web.url(r'/robots\.txt', RobotsHandler, name='robots'),
             web.url(r'/label/(?P<slug>[\w/-]+)', LabelHandler, name='label'),
             web.url(r'/(.+\.(?:png|jpg|css|ico))',
                 web.StaticFileHandler, {'path': settings.SOURCE_FOLDER}, name='static'),

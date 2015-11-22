@@ -62,15 +62,6 @@ class PagesHandlersTestCase(AsyncHTTPTestCase):
         self.assertEqual(render_mock.call_args[0][0], 'sitemap.xml')
         self.assertTrue(isinstance(render_mock.call_args[1]['c'], Context))
 
-    @mock.patch('c2p2.handlers.base.C2P2Handler.render')
-    def test_robots(self, render_mock):
-        client = AsyncHTTPClient(self.io_loop)
-        client.fetch(self.get_url(self.application.reverse_url('robots').replace('\.', '.')), self.stop)
-        response = self.wait()
-        self.assertEqual(response.code, 200)
-        self.assertEqual(render_mock.call_count, 1)
-        self.assertEqual(render_mock.call_args[0][0], 'robots.txt')
-
 
 class ErrorPagesHandlersTestCase(AsyncHTTPTestCase):
 

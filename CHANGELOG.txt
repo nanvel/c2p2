@@ -14,3 +14,4 @@
 - docs
 - error pages
 - repaired unittests
+- removed robots.txt handler

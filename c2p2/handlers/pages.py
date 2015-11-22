@@ -2,7 +2,7 @@ from ..context import Context
 from .base import C2P2Handler
 
 
-__all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'RobotsHandler', 'IndexHandler')
+__all__ = ('PageHandler', 'SitemapHandler', 'LabelHandler', 'IndexHandler')
 
 
 class PageHandler(C2P2Handler):
@@ -35,11 +35,3 @@ class SitemapHandler(C2P2Handler):
 
     def get(self):
         self.render('sitemap.xml', c=Context())
-
-
-class RobotsHandler(C2P2Handler):
-
-    SUPPORTED_METHODS = ('GET',)
-
-    def get(self):
-        self.render('robots.txt')
