@@ -7,12 +7,12 @@ __all__ = ('settings',)
 
 
 DEFAULT = {
-    'DEBUG': (bool, True, "Enable debug mode."),
-    'PORT': (int, 5000, "Port app listening to."),
-    'SOURCE_FOLDER': (str, '..', "Relative or absolute path to the folder contains pages source."),
-    'UPDATE_TIMEOUT': (int, 2, "Rescan source folder for updates every number of seconds, 0 - disable."),
-    'GITHUB_VALIDATE_IP': (bool, True, "Enable github ip validation."),
-    'GITHUB_SECRET': (str, '', "GitHub hooks secret, not required."),
+    'DEBUG': (bool, True, "Enable tornado debug mode."),
+    'PORT': (int, 5000, "Port the app listening to."),
+    'SOURCE_FOLDER': (str, '..', "Path to folder that contains pages source."),
+    'UPDATE_TIMEOUT': (int, 2, "Number of seconds to rescan source folder. 0 - disable."),
+    'GITHUB_VALIDATE_IP': (bool, True, "Enable GitHub ip validation."),
+    'GITHUB_SECRET': (str, '', "GitHub web hook secret, optional."),
     'GITHUB_BRANCH': (str, 'master', "GitHub branch to watch."),
 }
 

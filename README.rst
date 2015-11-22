@@ -53,10 +53,10 @@ variable ``c``, that uses to access list of pages and labels, for example:
     {{ c.pages['<page_slug>'] }}
     {{ c.pages.for_label('<label_slug>') }}
 
-``c.page`` available only in ``page.html``.
+``c.page`` is available only in ``page.html``.
 It returns current page object.
 
-``Page`` has next attributes:
+``Page`` object has next attributes:
     - uri
     - html
     - created
@@ -69,6 +69,7 @@ It returns current page object.
 
 .. code-block:: md
 
+    // page.md
     created: 2015-10-10T00:00
     show_comments: true
     labels: Label1
@@ -76,13 +77,16 @@ It returns current page object.
 
 .. code-block:: template
 
+    // page.html
     {{ c.page.meta.created }} -> '2015-10-10T00:00'
     {{ c.page.meta.created }} -> '2015-10-10T00:00'
     {{ c.page.meta.labels }} -> 'Label1'
     {{ c.page.meta.get('labels') }} -> 'Label1'
     {{ c.page.meta.get_list('labels') }} -> ['Label1', 'Label2']
+    {{ c.page.meta.show_comments }} -> true
+    {{ c.page.meta.not_exist }} -> None
 
-``page.labels`` is a list of Label objects connected to the page:
+``page.labels`` returns list of Label objects connected to the page:
 
 .. code-block:: template
 
@@ -92,8 +96,8 @@ It returns current page object.
     - title
     - slug
 
-``c.pages`` returns iterable that allows to get all pages list. In ``label.html`` it return only pages belongs to the label.
-``c.pages`` also allows to get any page by page uri and get all pages belongs to specified label.
+``c.pages`` returns an iterable that allows to get all pages list. In ``label.html`` it return only pages belong to the label.
+You also can get any page by uri using ``c.pages``.
 
 .. code-block:: template
 
@@ -120,31 +124,25 @@ To run the application use ``site/engine/app.py``:
 
 
     if __name__ == '__main__':
-	    settings.SOURCE_FOLDER = rel('..')
-	    app.run()
-
-Then to run the server:
-
-.. code-block::
-
-    python engine/app.py
+        settings.SOURCE_FOLDER = rel('..')
+        app.run()
 
 Settings
 --------
 
-Ways to set settings:
+There are 4 ways to set settings:
     - default settings (see ``c2p2/settings.py``)
     - environment variables with ``C2P2_`` prefix: ``export C2P2_PORT=5000``
     - command line arguments (``app.py --PORT=5000``)
     - also you can change them directly ``settings.PORT = 5000`` in ``site/engine/app.py`` 
 
 Available settings:
-    - ``DEBUG``: Enable debug mode
-    - ``PORT``: Port app listening to
-    - ``SOURCE_FOLDER``: Path to the folder contains pages source
+    - ``DEBUG``: Enable tornado debug mode
+    - ``PORT``: Port the app listening to
+    - ``SOURCE_FOLDER``: Path to folder that contains pages source
     - ``UPDATE_TIMEOUT``: Number of seconds to rescan source folder. 0 - disable
-    - ``GITHUB_VALIDATE_IP``: Enable github ip validation
-    - ``GITHUB_SECRET``: GitHub hooks secret, not required
+    - ``GITHUB_VALIDATE_IP``: Enable GitHub ip validation
+    - ``GITHUB_SECRET``: GitHub web hook secret, optional
     - ``GITHUB_BRANCH``: GitHub branch to watch
 
 Questions and Answers
@@ -156,12 +154,15 @@ Run on work station
 .. code-block:: bash
 
     cd site
+    virtualenv venv --no-site-packages -p /usr/local/bin/python3.5
+    source venv/bin/activate
+    pip install c2p2
     python engine/app.py
 
-And open http://localhost:5000.
+Open ``http://localhost:5000`` in browser.
 
-Update site if md file was changed
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Update site if md file was changed without server restart
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use UPDATE_TIMEOUT setting.
 
