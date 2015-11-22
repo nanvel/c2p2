@@ -15,3 +15,6 @@
 - error pages
 - repaired unittests
 - removed robots.txt handler
+
+=== 0.1.1 ===
+- fixed readme

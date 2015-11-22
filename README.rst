@@ -48,7 +48,7 @@ Minimal list of files required is:
 ``index.html``, ``page.html``, ``label.html`` and ``sitemap.xml`` receives, beside `tornado standart template context <http://www.tornadoweb.org/en/stable/guide/templates.html>`__,  
 variable ``c``, that uses to access list of pages and labels, for example:
 
-.. code-block:: template
+.. code-block:: django
 
     {{ c.page }}
     {{ c.page.title }}
@@ -72,7 +72,7 @@ It returns current page object.
 
 ``page.meta`` returns ``PageMeta`` object, where all variables specified in the top of the page is available.
 
-.. code-block:: md
+.. code-block:: text
 
     // page.md
     created: 2015-10-10T00:00
@@ -80,7 +80,7 @@ It returns current page object.
     labels: Label1
             Label2
 
-.. code-block:: template
+.. code-block:: django
 
     // page.html
     {{ c.page.meta.created }} -> '2015-10-10T00:00'
@@ -93,7 +93,7 @@ It returns current page object.
 
 ``page.labels`` returns list of Label objects connected to the page:
 
-.. code-block:: template
+.. code-block:: django
 
     {% for label in c.page.labels %}{{ label.title }}{% end %}
 
@@ -104,7 +104,7 @@ It returns current page object.
 ``c.pages`` returns an iterable that allows to get all pages list. In ``label.html`` it return only pages belong to the label.
 You also can get any page by uri using ``c.pages``.
 
-.. code-block:: template
+.. code-block:: django
 
     {% for page in c.pages %}{{ page.title }}{% end %}
 
@@ -190,7 +190,7 @@ Settings:
 
 Supervisor configuration:
 
-.. code-block:: conf
+.. code-block:: text
 
     [program:mysite]
     process_name=mysite
@@ -253,7 +253,7 @@ It is possible to register custom md directives:
 Edit on GitHub link
 ~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: template
+.. code-block:: django
 
     <a href="https://github.com/nanvel/mysite/blob/master/{{ c.page.uri }}.md" target="_blank">Edit on GitHub</a>
 
