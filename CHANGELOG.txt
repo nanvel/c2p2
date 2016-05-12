@@ -18,3 +18,6 @@
 
 === 0.1.1 ===
 - fixed readme
+
+=== 0.1.2 ===
+- open(fname, 'r', encoding='utf-8'), see http://stackoverflow.com/questions/23917729/switching-to-python-3-causing-unicodedecodeerror
