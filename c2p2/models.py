@@ -96,7 +96,7 @@ class Page(object):
     def update(self):
         logger.warning('Update {path}.'.format(path=self.path))
 
-        with open(self.path, 'r') as f:
+        with open(self.path, 'r', encoding='utf-8') as f:
             source_md = f.read()
 
         md = Markdown(extensions=self._md_extensions)
