@@ -6,9 +6,9 @@ C2P2 - Simple markdown pages publisher
 **P**\ ush
 **P**\ ublish
 
-> Live and die by documentation.
->
-> Matthew Ginnard
+    Live and die by documentation.
+    
+    Matthew Ginnard
 
 Installation
 ------------
