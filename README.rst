@@ -1,5 +1,5 @@
-C2P2 - Simple markdown pages publisher
-======================================
+C2P2 - A simple markdown pages publisher
+========================================
 
 **C**\ ode
 **C**\ ommit
@@ -50,7 +50,7 @@ Minimal list of files required is:
                 - sitemap.xml
 
 ``index.html``, ``page.html``, ``label.html`` and ``sitemap.xml`` receives, beside `tornado standart template context <http://www.tornadoweb.org/en/stable/guide/templates.html>`__,  
-variable ``c``, that uses to access list of pages and labels, for example:
+variable ``c``, that uses to access a list of pages and labels, for example:
 
 .. code-block:: django
 
@@ -157,8 +157,8 @@ Available settings:
 Questions and Answers
 ---------------------
 
-Run on work station
-~~~~~~~~~~~~~~~~~~~
+Run locally
+~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -170,29 +170,29 @@ Run on work station
 
 Open ``http://localhost:5000`` in browser.
 
-Update site if md file was changed without server restart
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Update site if md file was changed without server restart (watch md files)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use UPDATE_TIMEOUT setting.
 
 Update site on GitHub push
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create new GitHub hook for your repository:
+Create a new GitHub hook for your repository:
     - url: ``http://mysite.com/pull``
     - secret: should be equal to GITHUB_SECRET setting value
 
 Production configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Settings:
+Example settings:
     - DEBUG=false
     - UPDATE_TIMEOUT=0
     - GITHUB_VALIDATE_IP=true
     - GITHUB_SECRET=<webhook secret>
     - GITHUB_BRANCH=master
 
-Supervisor configuration:
+Example supervisor configuration:
 
 .. code-block:: text
 
@@ -207,7 +207,7 @@ Supervisor configuration:
     autostart=true
     autorestart=true
 
-Nginx configuration:
+Example nginx configuration:
 
 .. code-block:: nginx
 
