@@ -54,7 +54,7 @@ class GitHubPullHandler(C2P2Handler):
             if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
                 raise HTTPError(code=403)
 
-        logging.warning('GitHub pull ...')
+        logger.warning('GitHub pull ...')
 
         event = self.request.headers.get('X-GitHub-Event', 'ping')
         self.set_header('Content-Type', 'application/json')
