@@ -80,6 +80,7 @@ class Page(object):
             'markdown.extensions.admonition',
             'markdown.extensions.codehilite',
             'markdown.extensions.nl2br',
+            'markdown.extensions.tables',
         ]
         self._md_extensions.extend([
             extension() for extension in ExtensionsRegistry.list()
